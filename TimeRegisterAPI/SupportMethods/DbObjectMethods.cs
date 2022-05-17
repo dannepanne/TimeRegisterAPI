@@ -1,6 +1,7 @@
 ﻿using TimeRegisterAPI.Data;
 using TimeRegisterAPI.DTO;
 using TimeRegisterAPI.DTO.CustDTO;
+using TimeRegisterAPI.DTO.ProjDTO;
 
 namespace TimeRegisterAPI.SupportMethods
 {
@@ -29,6 +30,23 @@ namespace TimeRegisterAPI.SupportMethods
             _context.SaveChanges();
         }
 
+        public bool UpdateProject(int id, UpdateProjectDTO thisproj)
+        {
+            var proj = _context.Projects.FirstOrDefault(t => t.Id == id);
+            if (proj == null)
+                return false;
+            proj.Name = thisproj.Name;
+            proj.Description = thisproj.Description;
+            proj.PricePerHour = thisproj.PricePerHour;
+            _context.SaveChanges();
+            return true;
+        }
+
+        public void SaveNewProject(Project proj)
+        {
+            _context.Projects.Add(proj);
+            _context.SaveChanges();
+        }
 
     }
 }

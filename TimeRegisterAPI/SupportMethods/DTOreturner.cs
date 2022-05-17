@@ -1,4 +1,5 @@
-﻿using TimeRegisterAPI.Data;
+﻿using Microsoft.Data.SqlClient;
+using TimeRegisterAPI.Data;
 using TimeRegisterAPI.DTO;
 using TimeRegisterAPI.DTO.CustDTO;
 using TimeRegisterAPI.DTO.ProjDTO;
@@ -16,12 +17,12 @@ public class DTOreturner : IDTOreturner
         _mathHelpers = mathHelpers;
         _context = context;
     }
-    public List<ProjectOverviewDTO> ReturnProjectDtos(int customerId)
+    public List<ProjectOverviewDTO> ReturnCustomerProjectDtos(int customerId)
     {
 
         var projects = _context.Projects.Where(e => e.CustomerId == customerId);
 
-        List<ProjectOverviewDTO> returnList = new List<ProjectOverviewDTO>();
+        var returnList = new List<ProjectOverviewDTO>();
         foreach (var project in projects)
         {
             ProjectOverviewDTO newDTO = new ProjectOverviewDTO()
@@ -65,7 +66,7 @@ public class DTOreturner : IDTOreturner
 
     public List<CustomerListViewDTO> ReturnCustomerListViewDtos()
     {
-        List<CustomerListViewDTO> custDTOlist = new List<CustomerListViewDTO>();
+        var custDTOlist = new List<CustomerListViewDTO>();
         foreach (var cust in _context.Customers)
         {
             CustomerListViewDTO newDto = new CustomerListViewDTO()
@@ -77,5 +78,35 @@ public class DTOreturner : IDTOreturner
         }
 
         return custDTOlist;
+    }
+
+
+    public List<ProjectsListViewDTO> ReturnProjectListDto()
+    {
+        var projListDto = new List<ProjectsListViewDTO>();
+        foreach (var project in _context.Projects)
+        {
+            ProjectsListViewDTO newDto = new ProjectsListViewDTO
+            {
+                ProjectName = project.Name,
+                CustomerName = _context.Customers.FirstOrDefault(c => c.Id == project.CustomerId).Name,
+            };
+        }
+        var orderedlist = projListDto.OrderBy(x => x.CustomerName).ToList();
+        return orderedlist;
+    }
+
+    public ProjectOverviewDTO ReturnProjOverviewDto(int id)
+    {
+        var proj = _context.Projects.FirstOrDefault(x => x.Id == id);
+        var projOverview = new ProjectOverviewDTO()
+        {
+            ProjectName = proj.Name,
+            Description = proj.Description,
+            PricePerHour = proj.PricePerHour,
+            TimeSpentSoFar = _mathHelpers.TimeSpentSoFar(proj),
+            TotalSumSoFar = _mathHelpers.TimeSpentSoFar(proj) * proj.PricePerHour
+        };
+        return projOverview;
     }
 }

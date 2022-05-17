@@ -5,9 +5,9 @@ namespace TimeRegisterAPI.SupportMethods;
 public class MathHelpers : IMathHelpers
 {
 
-    public int MinutesToHoursSum(int minutes, int chargePerHour)
+    public int MinutesToHoursSum(int minutes, int pricePerHour)
     {
-        int hourSum = (minutes / 60) * chargePerHour;
+        int hourSum = (minutes / 60) * pricePerHour;
         return hourSum;
     }
 
@@ -21,9 +21,9 @@ public class MathHelpers : IMathHelpers
         return timeSpent;
     }
 
-    public int HoursSum(int hours, int chargePerHour)
+    public int HoursSum(int hours, int pricePerHour)
     {
-        return hours * chargePerHour;
+        return hours * pricePerHour;
     }
 
 }

@@ -7,10 +7,13 @@ namespace TimeRegisterAPI.SupportMethods
 {
     public interface IDTOreturner
     {
-        public List<ProjectOverviewDTO> ReturnProjectDtos(int customerId);
+        public List<ProjectOverviewDTO> ReturnCustomerProjectDtos(int customerId);
         TimeReportDTO ReturnTimeReportDto(int timereportId);
         public CustomerOverviewDTO ReturnCustomerOverViewDto(int customerId);
         public List<CustomerListViewDTO> ReturnCustomerListViewDtos();
+        public List<ProjectsListViewDTO> ReturnProjectListDto();
+
+        public ProjectOverviewDTO ReturnProjOverviewDto(int id);
 
 
     }
