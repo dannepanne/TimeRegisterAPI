@@ -18,51 +18,8 @@ namespace TimeRegisterAPI.Controllers
 
 
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return Ok(_dtoReturner.ReturnCustomerListViewDtos());
-        }
 
-
-        [HttpGet]
-        [Route("{id}")]
-        public IActionResult GetOne(int id)
-        {
-            var customer = _dtoReturner.ReturnCustomerOverViewDto(id);
-            if (customer == null)
-                return NotFound();
-
-            return Ok(customer);
-        }
-
-        [HttpPut]
-        [Route("{id}")]
-        public IActionResult Update(int id, UpdateCustomerDTO thisCust)
-        {
-            if (_objectMethods.UpdateCustomer(id, thisCust) == false) return NotFound();
-            _objectMethods.UpdateCustomer(id, thisCust);
-            return NoContent();
-        }
-
-        [HttpPost]
-        public IActionResult Create(CreateCustomerDTO newcust)
-        {
-            var cust = new Customer
-            {
-                Name = newcust.Name,
-                Projects = new List<Project>()
-            };
-            _objectMethods.SaveNewCustomer(cust);
-
-            var customerOverviewDto = new CustomerOverviewDTO
-            {
-
-                CustomerName = newcust.Name,
-                NoProjects = cust.Projects.Count(),
-
-            };
-            return CreatedAtAction(nameof(GetOne), new { id = cust.Id }, customerOverviewDto);
-        }
+        
+        
     }
 }

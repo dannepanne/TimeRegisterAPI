@@ -57,6 +57,7 @@ namespace TimeRegisterAPI.Controllers
                 Description = newproj.Description,
                 PricePerHour = newproj.PricePerHour,
                 CustomerId = newproj.CustomerId,
+                Active = true,
                 TimeReports = new List<TimeReport>()
             };
             _objectMethods.SaveNewProject(proj);
