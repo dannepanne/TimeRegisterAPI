@@ -18,6 +18,7 @@ builder.Services.AddTransient<DataInitializer>();
 builder.Services.AddTransient<IDTOreturner, DTOreturner>();
 builder.Services.AddTransient<IMathHelpers, MathHelpers>();
 builder.Services.AddTransient<IDbObjectMethods, DbObjectMethods>();
+builder.Services.AddTransient<IDBErrorHandlers, DBErrorHandlers>();
 
 
 

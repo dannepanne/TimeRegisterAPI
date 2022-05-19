@@ -108,15 +108,19 @@ namespace TimeRegisterAPI.Data
             {
                 _context.TimeReports.Add(new TimeReport
                 {
-                   NoHours = 4,
-                   Date = DateTime.Today.AddDays(-10),
-                   ProjectId = 1,
-                   Processed = false,
+                    Description = "Jobbade hårt",
+                    NoHours = 4,
+                    Date = DateTime.Today.AddDays(-10),
+                    ProjectId = 1,
+                    Processed = false,
+                    CustomerId = 1,
                     Sum = _mathHelpers.HoursSum(4, _context.Projects.FirstOrDefault(e=>e.Id == 1).PricePerHour)
 
                 });
                 _context.TimeReports.Add(new TimeReport
                 {
+                    CustomerId = 2,
+                    Description = "Jobbade hårt",
                     NoHours = 8,
                     Date = DateTime.Today.AddDays(-1),
                     ProjectId = 2,
@@ -126,6 +130,8 @@ namespace TimeRegisterAPI.Data
                 });
                 _context.TimeReports.Add(new TimeReport
                 {
+                    CustomerId = 3,
+                    Description = "Jobbade hårt",
                     NoHours = 10,
                     Date = DateTime.Today.AddDays(-45),
                     ProjectId = 3,
@@ -135,6 +141,8 @@ namespace TimeRegisterAPI.Data
                 });
                 _context.TimeReports.Add(new TimeReport
                 {
+                    CustomerId = 1,
+                    Description = "Jobbade hårt",
                     NoHours = 1,
                     Date = DateTime.Today.AddDays(-33),
                     ProjectId = 4,
@@ -144,6 +152,8 @@ namespace TimeRegisterAPI.Data
                 });
                 _context.TimeReports.Add(new TimeReport
                 {
+                    CustomerId = 2,
+                    Description = "Jobbade hårt",
                     NoHours = 5,
                     Date = DateTime.Today.AddDays(-1),
                     ProjectId = 5,
@@ -153,6 +163,8 @@ namespace TimeRegisterAPI.Data
                 });
                 _context.TimeReports.Add(new TimeReport
                 {
+                    CustomerId = 1,
+                    Description = "Jobbade hårt",
                     NoHours = 4,
                     Date = DateTime.Today.AddDays(-5),
                     ProjectId = 1,
@@ -162,6 +174,8 @@ namespace TimeRegisterAPI.Data
                 });
                 _context.TimeReports.Add(new TimeReport
                 {
+                    CustomerId = 1,
+                    Description = "Jobbade hårt",
                     NoHours = 2,
                     Date = DateTime.Today.AddDays(-15),
                     ProjectId = 1,
@@ -171,6 +185,8 @@ namespace TimeRegisterAPI.Data
                 });
                 _context.TimeReports.Add(new TimeReport
                 {
+                    CustomerId = 2,
+                    Description = "Jobbade hårt",
                     NoHours = 8,
                     Date = DateTime.Today.AddDays(-14),
                     ProjectId = 2,
@@ -180,6 +196,8 @@ namespace TimeRegisterAPI.Data
                 });
                 _context.TimeReports.Add(new TimeReport
                 {
+                    CustomerId = 3,
+                    Description = "Jobbade hårt",
                     NoHours = 16,
                     Date = DateTime.Today.AddDays(-28),
                     ProjectId = 3,
@@ -189,6 +207,8 @@ namespace TimeRegisterAPI.Data
                 });
                 _context.TimeReports.Add(new TimeReport
                 {
+                    CustomerId = 1,
+                    Description = "Jobbade hårt",
                     NoHours = 2,
                     Date = DateTime.Today.AddDays(-4),
                     ProjectId = 4,
@@ -198,6 +218,8 @@ namespace TimeRegisterAPI.Data
                 });
                 _context.TimeReports.Add(new TimeReport
                 {
+                    CustomerId = 2,
+                    Description = "Jobbade hårt",
                     NoHours = 3,
                     Date = DateTime.Today.AddDays(-8),
                     ProjectId = 5,
@@ -207,11 +229,13 @@ namespace TimeRegisterAPI.Data
                 });
                 _context.TimeReports.Add(new TimeReport
                 {
+                    CustomerId = 1,
                     NoHours = 9,
                     Date = DateTime.Today.AddDays(-6),
                     ProjectId = 1,
                     Processed = false,
-                    Sum = _mathHelpers.HoursSum(9, _context.Projects.FirstOrDefault(e => e.Id == 2).PricePerHour)
+                    Sum = _mathHelpers.HoursSum(9, _context.Projects.FirstOrDefault(e => e.Id == 2).PricePerHour),
+                    Description = "Jobbade hårt",
 
                 });
 

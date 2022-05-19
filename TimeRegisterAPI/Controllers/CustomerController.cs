@@ -10,11 +10,13 @@ namespace TimeRegisterAPI.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
+        private readonly IDBErrorHandlers _errorHanders;
         private readonly IDbObjectMethods _objectMethods;
         private readonly IDTOreturner _dtoReturner;
 
-        public CustomerController(IDTOreturner dtoReturner, IDbObjectMethods objectMethods)
+        public CustomerController(IDTOreturner dtoReturner, IDbObjectMethods objectMethods, IDBErrorHandlers errorHandlers)
         {
+            _errorHanders = errorHandlers;
             _objectMethods = objectMethods;
             _dtoReturner = dtoReturner;
         }

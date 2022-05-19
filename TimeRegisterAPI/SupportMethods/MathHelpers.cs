@@ -26,5 +26,4 @@ public class MathHelpers : IMathHelpers
         return hours * pricePerHour;
     }
 
-    
 }

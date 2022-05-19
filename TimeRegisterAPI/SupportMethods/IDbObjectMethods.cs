@@ -16,7 +16,7 @@ namespace TimeRegisterAPI.SupportMethods
         public bool UpdateTimeReport(int id, UpdateTimeReportDTO thisreport);
         public void SaveNewProject(TimeReport timereport);
         public CreateTimeReportDTO CreateTimeReport(CreateTimeReportDTO timerep);
-        public string ReturnProjectName(int timerepid)
+        public string ReturnProjectName(int timerepid);
 
 
 

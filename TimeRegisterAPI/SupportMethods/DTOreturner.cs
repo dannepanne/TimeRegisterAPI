@@ -49,20 +49,21 @@ public class DTOreturner : IDTOreturner
         return customerOverviewDTO;
     }
 
-    public TimeReportOverviewDTO ReturnTimeReportDto(int timereportId)
-    {
-        var timereport = _context.TimeReports.FirstOrDefault(e => e.Id == timereportId);
-        var projname = _context.Projects.FirstOrDefault(n => n.Id == timereport.ProjectId).Name;
-        TimeReportOverviewDTO reportDto = new TimeReportOverviewDTO()
-        {
-            ProjectName = projname,
-            NoHours = timereport.NoHours,
-            Sum = timereport.Sum,
-        };
+    //public TimeReportOverviewDTO ReturnTimeReportOverviewDto(int timereportId)
+    //{
+    //    var timereport = _context.TimeReports.FirstOrDefault(e => e.Id == timereportId);
 
-        return reportDto;
+    //    var projname = _context.Projects.FirstOrDefault(n => n.Id == timereport.ProjectId).Name;
+    //    TimeReportOverviewDTO reportDto = new TimeReportOverviewDTO()
+    //    {
+    //        ProjectName = projname,
+    //        NoHours = timereport.NoHours,
+    //        Sum = timereport.Sum,
+    //    };
 
-    }
+    //    return reportDto;
+
+    //}
 
     public List<CustomerListViewDTO> ReturnCustomerListViewDtos()
     {
