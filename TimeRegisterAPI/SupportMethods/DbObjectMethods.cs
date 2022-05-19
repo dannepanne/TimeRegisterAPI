@@ -2,15 +2,18 @@
 using TimeRegisterAPI.DTO;
 using TimeRegisterAPI.DTO.CustDTO;
 using TimeRegisterAPI.DTO.ProjDTO;
+using TimeRegisterAPI.DTO.TimeDTO;
 
 namespace TimeRegisterAPI.SupportMethods
 {
     public class DbObjectMethods :IDbObjectMethods
     {
+        private readonly IMathHelpers _mathHelpers;
         private readonly ApplicationDbContext _context;
 
-        public DbObjectMethods(ApplicationDbContext context)
+        public DbObjectMethods(ApplicationDbContext context, IMathHelpers mathHelpers)
         {
+            _mathHelpers = mathHelpers;
             _context = context;
         }
 
@@ -48,5 +51,51 @@ namespace TimeRegisterAPI.SupportMethods
             _context.SaveChanges();
         }
 
+
+        public bool UpdateTimeReport(int id, UpdateTimeReportDTO thisreport)
+        {
+            
+            var report = _context.TimeReports.FirstOrDefault(t => t.Id == id);
+            var project = _context.Projects.FirstOrDefault(t => t.Id == report.ProjectId);
+            if (report == null)
+                return false;
+            report.Description = thisreport.Description;
+            report.NoHours = thisreport.NoHours;
+            report.Processed = thisreport.Processed;
+            report.Sum = _mathHelpers.HoursSum(report.NoHours, project.PricePerHour);
+
+            _context.SaveChanges();
+            return true;
+        }
+
+        public void SaveNewProject(TimeReport timereport)
+        {
+            _context.TimeReports.Add(timereport);
+            _context.SaveChanges();
+        }
+
+
+        public CreateTimeReportDTO CreateTimeReport(CreateTimeReportDTO timerep)
+        {
+            var newreport = new TimeReport
+            {
+
+                Description = timerep.Description,
+                Date = DateTime.Today,
+                NoHours = timerep.NoHours,
+                ProjectId = timerep.ProjectId,
+                Processed = false,
+                Sum = _mathHelpers.HoursSum(8, _context.Projects.FirstOrDefault(e => e.Id == 2).PricePerHour)
+
+            };
+            SaveNewProject(newreport);
+            return timerep;
+        }
+
+        public string ReturnProjectName(int timerepid)
+        {
+            var projname = _context.Projects.FirstOrDefault(e => e.Id == timerepid).Name;
+            return projname;
+        }
     }
 }

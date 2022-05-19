@@ -49,11 +49,11 @@ public class DTOreturner : IDTOreturner
         return customerOverviewDTO;
     }
 
-    public TimeReportDTO ReturnTimeReportDto(int timereportId)
+    public TimeReportOverviewDTO ReturnTimeReportDto(int timereportId)
     {
         var timereport = _context.TimeReports.FirstOrDefault(e => e.Id == timereportId);
         var projname = _context.Projects.FirstOrDefault(n => n.Id == timereport.ProjectId).Name;
-        TimeReportDTO reportDto = new TimeReportDTO()
+        TimeReportOverviewDTO reportDto = new TimeReportOverviewDTO()
         {
             ProjectName = projname,
             NoHours = timereport.NoHours,
@@ -109,4 +109,46 @@ public class DTOreturner : IDTOreturner
         };
         return projOverview;
     }
+
+
+    public List<TimeReportListViewDTO> ReturnTimeReportListViewDtos()
+    {
+        var timeReportListView = new List<TimeReportListViewDTO>();
+        foreach (var timerep in _context.TimeReports)
+        {
+            if (!timerep.Processed == true)
+            {
+                TimeReportListViewDTO newDto = new TimeReportListViewDTO
+                {
+                    Date = timerep.Date,
+                    ProjectName = _context.Projects.FirstOrDefault(x => x.Id == timerep.ProjectId).Name,
+                    NoHours = timerep.NoHours,
+                    Processed = timerep.Processed
+                };
+            };
+        }
+
+        return timeReportListView;
+    }
+
+    public TimeReportOverviewDTO ReturnTimeReportOverviewDto(int id)
+    {
+        var report = _context.TimeReports.FirstOrDefault(x => x.Id == id);
+        var reportOverview = new TimeReportOverviewDTO
+        {
+            ProjectName = _context.Projects.FirstOrDefault(t => t.Id == report.ProjectId).Name,
+            Date = report.Date.ToShortDateString(),
+            NoHours = report.NoHours,
+            Sum = report.Sum,
+            Description = report.Description
+
+        };
+        return reportOverview;
+    }
+
+
+
+
+
+
 }
