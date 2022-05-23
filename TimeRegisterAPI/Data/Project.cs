@@ -1,4 +1,6 @@
-﻿namespace TimeRegisterAPI.Data
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TimeRegisterAPI.Data
 {
     public class Project
     {
@@ -6,9 +8,10 @@
         public string Description { get; set; }
         public string Name { get; set; }
         public int PricePerHour { get; set; }
+        [ForeignKey("Id")]
         public int CustomerId { get; set; }
         public bool Active { get; set; }
-        public List<TimeReport> TimeReports { get; set; } = new List<TimeReport>();
+        public List<TimeReport> TimeReports { get; set; }
         
     }
 }

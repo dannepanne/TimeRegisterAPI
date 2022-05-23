@@ -26,7 +26,7 @@ namespace TimeRegisterAPI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok(_dtoReturner.ReturnCustomerListViewDtos());
+            return Ok(_dtoReturner.ReturnProjectListDto());
         }
 
 

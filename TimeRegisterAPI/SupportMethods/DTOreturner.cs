@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using TimeRegisterAPI.Data;
 using TimeRegisterAPI.DTO;
 using TimeRegisterAPI.DTO.CustDTO;
@@ -23,9 +24,9 @@ public class DTOreturner : IDTOreturner
         var projects = _context.Projects.Where(e => e.CustomerId == customerId);
 
         var returnList = new List<ProjectOverviewDTO>();
-        foreach (var project in projects)
+        foreach (var project in projects.ToList())
         {
-            ProjectOverviewDTO newDTO = new ProjectOverviewDTO()
+            ProjectOverviewDTO newDTO = new ProjectOverviewDTO
             {
                 ProjectName = project.Name,
                 Description = project.Description,
@@ -39,8 +40,8 @@ public class DTOreturner : IDTOreturner
 
     public CustomerOverviewDTO ReturnCustomerOverViewDto(int customerId)
     {
-        var customer = _context.Customers.FirstOrDefault(c => c.Id == customerId);
-        CustomerOverviewDTO customerOverviewDTO = new CustomerOverviewDTO()
+        var customer = _context.Customers.Include(p=>p.Projects).FirstOrDefault(c => c.Id == customerId);
+        CustomerOverviewDTO customerOverviewDTO = new CustomerOverviewDTO
         {
             CustomerName = customer.Name,
             NoProjects = customer.Projects.Count()
@@ -68,9 +69,9 @@ public class DTOreturner : IDTOreturner
     public List<CustomerListViewDTO> ReturnCustomerListViewDtos()
     {
         var custDTOlist = new List<CustomerListViewDTO>();
-        foreach (var cust in _context.Customers)
+        foreach (var cust in _context.Customers.ToList())
         {
-            CustomerListViewDTO newDto = new CustomerListViewDTO()
+            CustomerListViewDTO newDto = new CustomerListViewDTO
             {
                 Id = cust.Id,
                 Name = cust.Name
@@ -85,13 +86,14 @@ public class DTOreturner : IDTOreturner
     public List<ProjectsListViewDTO> ReturnProjectListDto()
     {
         var projListDto = new List<ProjectsListViewDTO>();
-        foreach (var project in _context.Projects)
+        foreach (var project in _context.Projects.ToList())
         {
             ProjectsListViewDTO newDto = new ProjectsListViewDTO
             {
                 ProjectName = project.Name,
                 CustomerName = _context.Customers.FirstOrDefault(c => c.Id == project.CustomerId).Name,
             };
+            projListDto.Add(newDto);
         }
         var orderedlist = projListDto.OrderBy(x => x.CustomerName).ToList();
         return orderedlist;
@@ -115,7 +117,7 @@ public class DTOreturner : IDTOreturner
     public List<TimeReportListViewDTO> ReturnTimeReportListViewDtos()
     {
         var timeReportListView = new List<TimeReportListViewDTO>();
-        foreach (var timerep in _context.TimeReports)
+        foreach (var timerep in _context.TimeReports.ToList())
         {
             if (!timerep.Processed == true)
             {
@@ -126,6 +128,7 @@ public class DTOreturner : IDTOreturner
                     NoHours = timerep.NoHours,
                     Processed = timerep.Processed
                 };
+                timeReportListView.Add(newDto);
             };
         }
 

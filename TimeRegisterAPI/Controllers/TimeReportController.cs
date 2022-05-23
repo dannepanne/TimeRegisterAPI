@@ -12,11 +12,11 @@ namespace TimeRegisterAPI.Controllers
     {
         private readonly IDbObjectMethods _objectMethods;
         private readonly IDTOreturner _dtoReturner;
-        private readonly IDBErrorHandlers _errorHanders;
+        private readonly IDBErrorHandlers _errorHandlers;
 
         public TimeReportController(IDTOreturner dtoReturner, IDbObjectMethods objectMethods, IDBErrorHandlers errorHandlers)
         {
-            _errorHanders = errorHandlers;
+            _errorHandlers = errorHandlers;
             _objectMethods = objectMethods;
             _dtoReturner = dtoReturner;
             
@@ -55,7 +55,7 @@ namespace TimeRegisterAPI.Controllers
         public IActionResult Create(CreateTimeReportDTO newtimereport)
         {
             var timerep = _objectMethods.CreateTimeReport(newtimereport);
-            if (_errorHanders.TimeRepIdExists(timerep.Id) == true)
+            if (_errorHandlers.TimeRepIdExists(timerep.Id) == true)
             {
                 var timereportOverviewDto = new TimeReportOverviewDTO
                 {
