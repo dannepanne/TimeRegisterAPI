@@ -8,12 +8,12 @@ namespace TimeRegisterAPI.Data
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int Sum { get; set; }
-        [ForeignKey("Id")]
+
         public int ProjectId { get; set; }
         public bool Processed { get; set; }
         public int NoHours { get; set; }
         public string Description { get; set; }
-        [ForeignKey("Id")]
+
         public int CustomerId { get; set; }
 
     }

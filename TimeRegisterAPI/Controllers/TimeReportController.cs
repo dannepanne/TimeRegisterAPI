@@ -34,6 +34,8 @@ namespace TimeRegisterAPI.Controllers
         [Route("{id}")]
         public IActionResult GetOne(int id)
         {
+            if (_errorHandlers.TimeRepIdExists(id) == false)
+            return this.NotFound("Id does not exist");
 
             var report = _dtoReturner.ReturnTimeReportOverviewDto(id);
             if (report == null)

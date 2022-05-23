@@ -8,7 +8,7 @@ namespace TimeRegisterAPI.Data
         public string Description { get; set; }
         public string Name { get; set; }
         public int PricePerHour { get; set; }
-        [ForeignKey("Id")]
+  
         public int CustomerId { get; set; }
         public bool Active { get; set; }
         public List<TimeReport> TimeReports { get; set; }

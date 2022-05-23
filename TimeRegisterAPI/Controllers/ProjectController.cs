@@ -10,13 +10,13 @@ namespace TimeRegisterAPI.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-        private readonly IDBErrorHandlers _errorHanders;
+        private readonly IDBErrorHandlers _errorHandlers;
         private readonly IDbObjectMethods _objectMethods;
         private readonly IDTOreturner _dtoReturner;
 
         public ProjectController(IDTOreturner dtoReturner, IDbObjectMethods objectMethods, IDBErrorHandlers errorHandlers)
         {
-            _errorHanders = errorHandlers;
+            _errorHandlers = errorHandlers;
             _objectMethods = objectMethods;
             _dtoReturner = dtoReturner;
         }
@@ -34,6 +34,9 @@ namespace TimeRegisterAPI.Controllers
         [Route("{id}")]
         public IActionResult GetOne(int id)
         {
+            if (_errorHandlers.ProjectIdExists(id) == false)
+                return this.NotFound("Id does not exist");
+
             var project = _dtoReturner.ReturnProjOverviewDto(id);
             if (project == null)
                 return NotFound();

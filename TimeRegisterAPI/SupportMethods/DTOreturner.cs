@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Net;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using TimeRegisterAPI.Data;
 using TimeRegisterAPI.DTO;
@@ -145,7 +146,6 @@ public class DTOreturner : IDTOreturner
             NoHours = report.NoHours,
             Sum = report.Sum,
             Description = report.Description
-
         };
         return reportOverview;
     }

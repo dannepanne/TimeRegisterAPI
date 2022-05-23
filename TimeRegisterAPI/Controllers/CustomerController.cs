@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using TimeRegisterAPI.Data;
 using TimeRegisterAPI.DTO;
 using TimeRegisterAPI.DTO.CustDTO;
@@ -10,13 +11,13 @@ namespace TimeRegisterAPI.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly IDBErrorHandlers _errorHanders;
+        private readonly IDBErrorHandlers _errorHandlers;
         private readonly IDbObjectMethods _objectMethods;
         private readonly IDTOreturner _dtoReturner;
 
         public CustomerController(IDTOreturner dtoReturner, IDbObjectMethods objectMethods, IDBErrorHandlers errorHandlers)
         {
-            _errorHanders = errorHandlers;
+            _errorHandlers = errorHandlers;
             _objectMethods = objectMethods;
             _dtoReturner = dtoReturner;
         }
@@ -32,6 +33,9 @@ namespace TimeRegisterAPI.Controllers
         [Route("{id}")]
         public IActionResult GetOne(int id)
         {
+            if (_errorHandlers.CustomerIdExists(id) == false)
+                return this.NotFound("Id does not exist");
+
             var customer = _dtoReturner.ReturnCustomerOverViewDto(id);
             if (customer == null)
                 return NotFound();
