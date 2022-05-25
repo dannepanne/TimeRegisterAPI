@@ -8,7 +8,7 @@ namespace TimeRegisterAPI.Data
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int Sum { get; set; }
-
+        
         public int ProjectId { get; set; }
         public bool Processed { get; set; }
         public int NoHours { get; set; }
