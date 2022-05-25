@@ -1,7 +1,6 @@
-﻿namespace TimeRegisterAPI.DTO.CustDTO
+﻿namespace TimeRegisterAPI.DTO.CustDTO;
+
+public class UpdateCustomerDTO
 {
-    public class UpdateCustomerDTO
-    {
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
 }

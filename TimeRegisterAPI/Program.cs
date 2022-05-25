@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Swashbuckle.AspNetCore.Swagger;
 using TimeRegisterAPI.Data;
 using TimeRegisterAPI.Infrastructure.DTOReturners;
 using TimeRegisterAPI.Infrastructure.Profiles;
@@ -26,7 +25,6 @@ builder.Services.AddTransient<IDBErrorHandlers, DBErrorHandlers>();
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
 
 
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -40,6 +38,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseRouting();
 
 app.UseHttpsRedirection();
@@ -47,7 +46,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    "default",
+    "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

@@ -1,9 +1,7 @@
-﻿namespace TimeRegisterAPI.DTO.CustDTO
+﻿namespace TimeRegisterAPI.DTO.CustDTO;
+
+public class CustomerListViewDTO
 {
-    public class CustomerListViewDTO
-    {
-        public string Name { get; set; }
-        public int Id { get; set; }
-        
-    }
+    public string Name { get; set; }
+    public int Id { get; set; }
 }
