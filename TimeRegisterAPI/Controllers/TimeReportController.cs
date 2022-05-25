@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections;
+using Microsoft.AspNetCore.Mvc;
 using TimeRegisterAPI.Data;
 using TimeRegisterAPI.DTO.ProjDTO;
 using TimeRegisterAPI.DTO.TimeDTO;
 using TimeRegisterAPI.SupportMethods;
+using TimeRegisterAPI.SupportMethods.DTOReturners;
 
 namespace TimeRegisterAPI.Controllers
 {
@@ -11,10 +13,10 @@ namespace TimeRegisterAPI.Controllers
     public class TimeReportController : ControllerBase
     {
         private readonly IDbObjectMethods _objectMethods;
-        private readonly IDTOreturner _dtoReturner;
+        private readonly ITimeRegDTOReturner _dtoReturner;
         private readonly IDBErrorHandlers _errorHandlers;
 
-        public TimeReportController(IDTOreturner dtoReturner, IDbObjectMethods objectMethods, IDBErrorHandlers errorHandlers)
+        public TimeReportController(ITimeRegDTOReturner dtoReturner, IDbObjectMethods objectMethods, IDBErrorHandlers errorHandlers)
         {
             _errorHandlers = errorHandlers;
             _objectMethods = objectMethods;
@@ -74,7 +76,20 @@ namespace TimeRegisterAPI.Controllers
             return NotFound();
         }
 
-
+        [HttpGet]
+        [Route("timeregprocessed")]
+        public IActionResult GetProcessed()
+        {
+            var processed = _dtoReturner.ReturnTimeReportListViewProcessedDtos().OrderBy(x => x.ProjectName).ToList();
+            return Ok(processed);
+        }
+        [HttpGet]
+        [Route("timeregnotprocessed")]
+        public IActionResult GetNotProcessed()
+        {
+            var processed = _dtoReturner.ReturnTimeReportListViewNotProcessedDtos().OrderBy(x => x.ProjectName).ToList();
+            return Ok(processed);
+        }
 
     }
 }

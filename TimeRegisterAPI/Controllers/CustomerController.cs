@@ -4,6 +4,7 @@ using TimeRegisterAPI.Data;
 using TimeRegisterAPI.DTO;
 using TimeRegisterAPI.DTO.CustDTO;
 using TimeRegisterAPI.SupportMethods;
+using TimeRegisterAPI.SupportMethods.DTOReturners;
 
 namespace TimeRegisterAPI.Controllers
 {
@@ -13,9 +14,9 @@ namespace TimeRegisterAPI.Controllers
     {
         private readonly IDBErrorHandlers _errorHandlers;
         private readonly IDbObjectMethods _objectMethods;
-        private readonly IDTOreturner _dtoReturner;
+        private readonly ICustomerDTOReturner _dtoReturner;
 
-        public CustomerController(IDTOreturner dtoReturner, IDbObjectMethods objectMethods, IDBErrorHandlers errorHandlers)
+        public CustomerController(ICustomerDTOReturner dtoReturner, IDbObjectMethods objectMethods, IDBErrorHandlers errorHandlers)
         {
             _errorHandlers = errorHandlers;
             _objectMethods = objectMethods;
@@ -35,11 +36,10 @@ namespace TimeRegisterAPI.Controllers
         {
             if (_errorHandlers.CustomerIdExists(id) == false)
                 return this.NotFound("Id does not exist");
-
             var customer = _dtoReturner.ReturnCustomerOverViewDto(id);
             if (customer == null)
                 return NotFound();
-           
+            
             return Ok(customer);
         }
 
@@ -66,7 +66,7 @@ namespace TimeRegisterAPI.Controllers
             {
 
                 CustomerName = newcust.Name,
-                NoProjects = cust.Projects.Count(),
+                Projects = _dtoReturner.ReturnCustomerProjectDtos(newcust.Id),
                 
             };
             return CreatedAtAction(nameof(GetOne), new { id = cust.Id }, customerOverviewDto);

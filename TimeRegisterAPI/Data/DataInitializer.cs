@@ -58,6 +58,7 @@ namespace TimeRegisterAPI.Data
                     CustomerId = 1,
                     Active = true,
                     Description = "Halvny webshop, mest gammalt men lite nytt",
+                    EndDate = DateTime.Today.AddDays(30)
 
                 });
                 _context.Projects.Add(new Project
@@ -67,6 +68,7 @@ namespace TimeRegisterAPI.Data
                     CustomerId = 2,
                     Active = true,
                     Description = "Nytt faktureringssystem i .NET",
+                    EndDate = DateTime.Today.AddDays(90)
 
                 });
                 _context.Projects.Add(new Project
@@ -76,6 +78,7 @@ namespace TimeRegisterAPI.Data
                     CustomerId = 3,
                     Active = true,
                     Description = "Ny logotyp gjord i enbart ASCII",
+                    EndDate = DateTime.Today.AddDays(50)
 
                 });
                 _context.Projects.Add(new Project
@@ -85,6 +88,7 @@ namespace TimeRegisterAPI.Data
                     CustomerId = 1,
                     Active = true,
                     Description = "Gränssnitt i JS för att läsa in API med branschnyheter",
+                    EndDate = DateTime.Today.AddDays(25)
 
                 });
                 _context.Projects.Add(new Project
@@ -94,6 +98,17 @@ namespace TimeRegisterAPI.Data
                     CustomerId = 2,
                     Active = true,
                     Description = "Kund önskar inloggningssystem för att komma åt intranät",
+                    EndDate = DateTime.Today.AddDays(100)
+
+                });
+                _context.Projects.Add(new Project
+                {
+                    Name = "Fixa API",
+                    PricePerHour = 300,
+                    CustomerId = 1,
+                    Active = false,
+                    Description = "API till skoluppgift",
+                    EndDate = DateTime.Today.AddDays(1)
 
                 });
 

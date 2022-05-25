@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
 using TimeRegisterAPI.Data;
 using TimeRegisterAPI.SupportMethods;
+using TimeRegisterAPI.SupportMethods.DTOReturners;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddTransient<DataInitializer>();
-builder.Services.AddTransient<IDTOreturner, DTOreturner>();
+builder.Services.AddTransient<ICustomerDTOReturner, CustomerDTOReturner>();
+builder.Services.AddTransient<IProjectDTOReturner, ProjectDTOReturner>();
+builder.Services.AddTransient<ITimeRegDTOReturner, TimeRegDTOReturner>();
 builder.Services.AddTransient<IMathHelpers, MathHelpers>();
 builder.Services.AddTransient<IDbObjectMethods, DbObjectMethods>();
 builder.Services.AddTransient<IDBErrorHandlers, DBErrorHandlers>();

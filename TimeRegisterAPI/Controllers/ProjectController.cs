@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TimeRegisterAPI.Data;
-using TimeRegisterAPI.DTO.CustDTO;
 using TimeRegisterAPI.DTO.ProjDTO;
 using TimeRegisterAPI.SupportMethods;
+using TimeRegisterAPI.SupportMethods.DTOReturners;
 
 namespace TimeRegisterAPI.Controllers
 {
@@ -12,9 +12,9 @@ namespace TimeRegisterAPI.Controllers
     {
         private readonly IDBErrorHandlers _errorHandlers;
         private readonly IDbObjectMethods _objectMethods;
-        private readonly IDTOreturner _dtoReturner;
+        private readonly IProjectDTOReturner _dtoReturner;
 
-        public ProjectController(IDTOreturner dtoReturner, IDbObjectMethods objectMethods, IDBErrorHandlers errorHandlers)
+        public ProjectController(IProjectDTOReturner dtoReturner, IDbObjectMethods objectMethods, IDBErrorHandlers errorHandlers)
         {
             _errorHandlers = errorHandlers;
             _objectMethods = objectMethods;
@@ -26,7 +26,8 @@ namespace TimeRegisterAPI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok(_dtoReturner.ReturnProjectListDto());
+            
+            return Ok(_dtoReturner.ReturnProjectListDto().OrderBy(x=>x.CustomerName).ToList());
         }
 
 
@@ -63,6 +64,7 @@ namespace TimeRegisterAPI.Controllers
                 PricePerHour = newproj.PricePerHour,
                 CustomerId = newproj.CustomerId,
                 Active = true,
+                EndDate = newproj.EndDate,
                 TimeReports = new List<TimeReport>()
             };
             _objectMethods.SaveNewProject(proj);
@@ -73,9 +75,29 @@ namespace TimeRegisterAPI.Controllers
                 ProjectName = newproj.Name,
                 PricePerHour = newproj.PricePerHour,
                 Description = newproj.Description,
+                EndDate = newproj.EndDate
 
             };
             return CreatedAtAction(nameof(GetOne), new { id = newproj.Id }, projectOverviewDto);
+        }
+
+        [HttpGet]
+        [Route("activeprojects")]
+        public IActionResult GetActiveProjects()
+        {
+           var returnList = _dtoReturner.ReturnActiveProjectsDto();
+           return Ok(returnList);
+        }
+        [HttpGet]
+        [Route("finishedprojects")]
+        public IActionResult GetFinishedProjects()
+        {
+            var returnList = _dtoReturner.ReturnFinishedProjectsDto();
+            if(returnList != null)
+            {
+                return Ok(returnList);
+            }
+            return this.NotFound("There are no finished projects");
         }
 
     }

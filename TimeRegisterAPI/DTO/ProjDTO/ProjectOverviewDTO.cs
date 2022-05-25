@@ -7,6 +7,9 @@
         public int? TotalSumSoFar { get; set; }
         public int PricePerHour { get; set; }
         public string Description { get; set; }
+        
+        public DateTime EndDate { get; set; }
+        
 
     }
 }
