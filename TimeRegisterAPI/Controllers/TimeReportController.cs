@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using TimeRegisterAPI.Data;
 using TimeRegisterAPI.DTO.ProjDTO;
 using TimeRegisterAPI.DTO.TimeDTO;
+using TimeRegisterAPI.Infrastructure.DTOReturners;
 using TimeRegisterAPI.SupportMethods;
-using TimeRegisterAPI.SupportMethods.DTOReturners;
 
 namespace TimeRegisterAPI.Controllers
 {

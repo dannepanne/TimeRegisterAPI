@@ -1,7 +1,8 @@
 ﻿using TimeRegisterAPI.Data;
 using TimeRegisterAPI.DTO.ProjDTO;
+using TimeRegisterAPI.SupportMethods;
 
-namespace TimeRegisterAPI.SupportMethods.DTOReturners
+namespace TimeRegisterAPI.Infrastructure.DTOReturners
 {
     public class ProjectDTOReturner : IProjectDTOReturner
     {

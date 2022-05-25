@@ -1,18 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TimeRegisterAPI.Data;
 using TimeRegisterAPI.DTO.CustDTO;
 using TimeRegisterAPI.DTO.ProjDTO;
+using TimeRegisterAPI.SupportMethods;
 
-namespace TimeRegisterAPI.SupportMethods.DTOReturners;
+namespace TimeRegisterAPI.Infrastructure.DTOReturners;
 
 public class CustomerDTOReturner : ICustomerDTOReturner
 {
-    private readonly IMathHelpers _mathHelpers;
+    private readonly IMapper _mapper;
     private readonly ApplicationDbContext _context;
 
-    public CustomerDTOReturner(ApplicationDbContext context, IMathHelpers mathHelpers)
+    public CustomerDTOReturner(ApplicationDbContext context, IMapper mapper)
     {
-        _mathHelpers = mathHelpers;
+        _mapper = mapper;
         _context = context;
     }
     public List<ProjectsListViewDTO> ReturnCustomerProjectDtos(int customerId)
@@ -54,16 +56,16 @@ public class CustomerDTOReturner : ICustomerDTOReturner
         var custDTOlist = new List<CustomerListViewDTO>();
         foreach (var cust in _context.Customers.ToList())
         {
-            CustomerListViewDTO newDto = new CustomerListViewDTO
-            {
-                Id = cust.Id,
-                Name = cust.Name
-            };
-                custDTOlist.Add(newDto);
+            var customer = _context.Customers.First(p => p.Id == cust.Id);
+            var model = _mapper.Map<CustomerListViewDTO>(customer);
+            
+            custDTOlist.Add(model);
         }
 
         return custDTOlist;
     }
+    
 
+    
 
 }

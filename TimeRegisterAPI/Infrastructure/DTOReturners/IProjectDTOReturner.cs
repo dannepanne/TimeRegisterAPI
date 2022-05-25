@@ -1,6 +1,6 @@
 ﻿using TimeRegisterAPI.DTO.ProjDTO;
 
-namespace TimeRegisterAPI.SupportMethods.DTOReturners
+namespace TimeRegisterAPI.Infrastructure.DTOReturners
 {
     public interface IProjectDTOReturner
     {

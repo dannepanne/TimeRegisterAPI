@@ -1,8 +1,7 @@
 ﻿using TimeRegisterAPI.DTO.CustDTO;
 using TimeRegisterAPI.DTO.ProjDTO;
-using TimeRegisterAPI.DTO.TimeDTO;
 
-namespace TimeRegisterAPI.SupportMethods.DTOReturners
+namespace TimeRegisterAPI.Infrastructure.DTOReturners
 {
     public interface ICustomerDTOReturner
     {
