@@ -11,6 +11,6 @@ namespace TimeRegisterAPI.DTO.ProjDTO
         public int CustomerId { get; set; }
         public bool Active { get; set; }
         public DateTime EndDate { get; set; }
-        public List<TimeReport> TimeReports { get; set; } = new List<TimeReport>();
+        public List<TimeReport> TimeReports = new List<TimeReport>();
     }
 }
