@@ -46,7 +46,7 @@ public class CustomerController : ControllerBase
     [Route("{id}")]
     public IActionResult Update(int id, UpdateCustomerDTO thisCust)
     {
-        if (_objectMethods.UpdateCustomer(id, thisCust) == false) return NotFound();
+        if (_objectMethods.UpdateCustomer(id, thisCust) == false) return NotFound("Id does not exist");
         _objectMethods.UpdateCustomer(id, thisCust);
         return NoContent();
     }
