@@ -114,8 +114,6 @@ public class TimeRegDTOReturner : ITimeRegDTOReturner
     }
 
 
-
-
     public List<TimeReportInvoiceDTO> TimeRegInvoiceReturner()
     {
         List<TimeReportInvoiceDTO> timeReports = new List<TimeReportInvoiceDTO>();
