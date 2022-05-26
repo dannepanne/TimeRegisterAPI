@@ -9,8 +9,11 @@ public class CreateProjectDTO
     public int Id { get; set; }
     public string Description { get; set; }
     [Required(ErrorMessage = "Projektnamn måste anges")]
+    [MaxLength(50, ErrorMessage = "Projektnamnet får bestå av max 50 tecken")]
 
     public string Name { get; set; }
+    [Range(1, 50000, ErrorMessage = "Ange en summa mellan 1 och 50000")]
+
     public int PricePerHour { get; set; }
     [Required(ErrorMessage = "Projektet måste tillhöra en existerande kund")]
 
