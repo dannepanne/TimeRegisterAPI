@@ -2,6 +2,8 @@
 
 public class ProjectOverviewDTO
 {
+    public int Id { get; set; }
+
     public string ProjectName { get; set; }
     public int? TimeSpentSoFar { get; set; }
     public int? TotalSumSoFar { get; set; }

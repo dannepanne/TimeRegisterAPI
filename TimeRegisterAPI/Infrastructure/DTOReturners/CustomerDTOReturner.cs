@@ -41,6 +41,7 @@ public class CustomerDTOReturner : ICustomerDTOReturner
         var customer = _context.Customers.Include(p => p.Projects).FirstOrDefault(c => c.Id == customerId);
         var customerOverviewDTO = new CustomerOverviewDTO
         {
+            Id = customer.Id,
             CustomerName = customer.Name,
             Projects = ReturnCustomerProjectDtos(customerId)
         };

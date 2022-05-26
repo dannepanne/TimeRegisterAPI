@@ -45,6 +45,7 @@ public class TimeRegDTOReturner : ITimeRegDTOReturner
             {
                 var newDto = new TimeReportListViewDTO
                 {
+                    Id = timerep.Id,
                     Date = timerep.Date,
                     ProjectName = _context.Projects.FirstOrDefault(x => x.Id == timerep.ProjectId).Name,
                     NoHours = timerep.NoHours,
@@ -68,6 +69,7 @@ public class TimeRegDTOReturner : ITimeRegDTOReturner
             {
                 var newDto = new TimeReportListViewDTO
                 {
+                    Id = timerep.Id,
                     Date = timerep.Date,
                     ProjectName = _context.Projects.FirstOrDefault(x => x.Id == timerep.ProjectId).Name,
                     NoHours = timerep.NoHours,
@@ -87,6 +89,7 @@ public class TimeRegDTOReturner : ITimeRegDTOReturner
         var report = _context.TimeReports.FirstOrDefault(x => x.Id == id);
         var reportOverview = new TimeReportOverviewDTO
         {
+            Id = report.Id,
             ProjectName = _context.Projects.FirstOrDefault(t => t.Id == report.ProjectId).Name,
             Date = report.Date.ToShortDateString(),
             NoHours = report.NoHours,

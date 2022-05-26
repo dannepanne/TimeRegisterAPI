@@ -39,6 +39,7 @@ public class ProjectDTOReturner : IProjectDTOReturner
         var proj = _context.Projects.FirstOrDefault(x => x.Id == id);
         var projOverview = new ProjectOverviewDTO
         {
+            Id = proj.Id,
             ProjectName = proj.Name,
             Description = proj.Description,
             PricePerHour = proj.PricePerHour,
@@ -56,6 +57,7 @@ public class ProjectDTOReturner : IProjectDTOReturner
             {
                 var projOverview = new ProjectsListViewDTO
                 {
+                    Id = project.Id,
                     ProjectName = project.Name,
                     CustomerName = _context.Customers.FirstOrDefault(c => c.Id == project.CustomerId).Name,
                     EndDate = project.EndDate
@@ -74,6 +76,7 @@ public class ProjectDTOReturner : IProjectDTOReturner
             {
                 var projOverview = new ProjectsListViewDTO
                 {
+                    Id = project.Id,
                     ProjectName = project.Name,
                     CustomerName = _context.Customers.FirstOrDefault(c => c.Id == project.CustomerId).Name,
                     EndDate = project.EndDate
