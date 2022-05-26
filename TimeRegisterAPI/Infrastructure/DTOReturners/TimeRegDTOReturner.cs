@@ -24,6 +24,7 @@ public class TimeRegDTOReturner : ITimeRegDTOReturner
         {
             var newDto = new TimeReportListViewDTO
             {
+                Id = timerep.Id,
                 Date = timerep.Date,
                 ProjectName = _context.Projects.FirstOrDefault(x => x.Id == timerep.ProjectId).Name,
                 NoHours = timerep.NoHours,
