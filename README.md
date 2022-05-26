@@ -4,7 +4,8 @@ API to manage time reports for projects and customers.
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+API for creating and managing Customers, Projects and TimeReports. The API have HTTP calls configured with routing for some 
+basic use cases. See Executing Program for descriptions of each call.
 
 ## Getting Started
 
