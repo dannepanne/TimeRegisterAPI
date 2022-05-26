@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeRegisterAPI.Data;
 
@@ -11,9 +12,10 @@ using TimeRegisterAPI.Data;
 namespace TimeRegisterAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220525125351_noFK")]
+    partial class noFK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,8 +71,6 @@ namespace TimeRegisterAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
                     b.ToTable("Projects");
                 });
 
@@ -106,37 +106,7 @@ namespace TimeRegisterAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
-
                     b.ToTable("TimeReports");
-                });
-
-            modelBuilder.Entity("TimeRegisterAPI.Data.Project", b =>
-                {
-                    b.HasOne("TimeRegisterAPI.Data.Customer", null)
-                        .WithMany("Projects")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TimeRegisterAPI.Data.TimeReport", b =>
-                {
-                    b.HasOne("TimeRegisterAPI.Data.Project", null)
-                        .WithMany("TimeReports")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TimeRegisterAPI.Data.Customer", b =>
-                {
-                    b.Navigation("Projects");
-                });
-
-            modelBuilder.Entity("TimeRegisterAPI.Data.Project", b =>
-                {
-                    b.Navigation("TimeReports");
                 });
 #pragma warning restore 612, 618
         }

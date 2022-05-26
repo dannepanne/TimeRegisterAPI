@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeRegisterAPI.Data;
 
@@ -11,9 +12,10 @@ using TimeRegisterAPI.Data;
 namespace TimeRegisterAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220517111732_adds")]
+    partial class adds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,8 +49,8 @@ namespace TimeRegisterAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                    b.Property<int>("CostPerHour")
+                        .HasColumnType("int");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -57,15 +59,9 @@ namespace TimeRegisterAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PricePerHour")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -82,21 +78,11 @@ namespace TimeRegisterAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("NoHours")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Processed")
-                        .HasColumnType("bit");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
