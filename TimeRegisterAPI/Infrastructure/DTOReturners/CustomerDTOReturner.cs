@@ -26,6 +26,7 @@ public class CustomerDTOReturner : ICustomerDTOReturner
         {
             var newDTO = new ProjectsListViewDTO
             {
+                Id = project.Id,
                 ProjectName = project.Name,
                 CustomerName = _context.Customers.FirstOrDefault(x => x.Id == customerId).Name,
                 EndDate = project.EndDate
