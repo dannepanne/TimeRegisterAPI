@@ -74,7 +74,7 @@ public class TimeReportController : ControllerBase
     }
 
     [HttpGet]
-    [Route("timeregprocessed")]
+    [Route("TimeRepPocessed")]
     public IActionResult GetProcessed()
     {
         var processed = _dtoReturner.ReturnTimeReportListViewProcessedDtos().OrderBy(x => x.ProjectName).ToList();
@@ -82,10 +82,20 @@ public class TimeReportController : ControllerBase
     }
 
     [HttpGet]
-    [Route("timeregnotprocessed")]
+    [Route("TimeRepNotProcessed")]
     public IActionResult GetNotProcessed()
     {
         var processed = _dtoReturner.ReturnTimeReportListViewNotProcessedDtos().OrderBy(x => x.ProjectName).ToList();
         return Ok(processed);
     }
+
+    [HttpGet]
+    [Route("GetUnprocessedInvoices")]
+    public IActionResult GetInvoices()
+    {
+        var invoices = _dtoReturner.TimeRegInvoiceReturner();
+        return Ok(invoices);
+    }
 }
+
+

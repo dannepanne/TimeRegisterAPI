@@ -8,4 +8,6 @@ public interface ITimeRegDTOReturner
     public TimeReportOverviewDTO ReturnTimeReportOverviewDto(int id);
     public List<TimeReportListViewDTO> ReturnTimeReportListViewProcessedDtos();
     public List<TimeReportListViewDTO> ReturnTimeReportListViewNotProcessedDtos();
+    public List<TimeReportInvoiceDTO> TimeRegInvoiceReturner();
+
 }

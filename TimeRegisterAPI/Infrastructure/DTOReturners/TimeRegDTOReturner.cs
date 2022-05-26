@@ -1,15 +1,19 @@
-﻿using TimeRegisterAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TimeRegisterAPI.Data;
 using TimeRegisterAPI.DTO.TimeDTO;
+using TimeRegisterAPI.SupportMethods;
 
 namespace TimeRegisterAPI.Infrastructure.DTOReturners;
 
 public class TimeRegDTOReturner : ITimeRegDTOReturner
 {
     private readonly ApplicationDbContext _context;
+    private readonly IMathHelpers _mathHelpers;
 
-    public TimeRegDTOReturner(ApplicationDbContext context)
+    public TimeRegDTOReturner(ApplicationDbContext context, IMathHelpers mathHelpers)
     {
         _context = context;
+        _mathHelpers = mathHelpers;
     }
 
 
@@ -71,9 +75,9 @@ public class TimeRegDTOReturner : ITimeRegDTOReturner
                 timeReportListView.Add(newDto);
             }
 
-            ;
-        }
 
+        }
+        
         return timeReportListView;
     }
 
@@ -89,5 +93,40 @@ public class TimeRegDTOReturner : ITimeRegDTOReturner
             Description = report.Description
         };
         return reportOverview;
+    }
+
+    public TimeReportInvoiceDTO TimeReportInvoice(Project project)
+    {
+
+        var proj = _context.Projects.Include(x => x.TimeReports).FirstOrDefault(x => x.Id == project.Id);
+        List<TimeReport> unProcessed = proj.TimeReports.Where(x => x.Processed == false).ToList();
+        int invoiceSum = _mathHelpers.InvoiceSum(unProcessed);
+
+        TimeReportInvoiceDTO newDto = new TimeReportInvoiceDTO
+        {
+            CustomerName = _context.Customers.FirstOrDefault(x => x.Id == proj.CustomerId).Name,
+            ProjectName = proj.Name,
+            InvoiceSum = invoiceSum,
+            TimeReports = unProcessed,
+        };
+
+        return newDto;
+    }
+
+
+    public List<TimeReportInvoiceDTO> TimeRegInvoiceReturner()
+    {
+        List<TimeReportInvoiceDTO> timeReports = new List<TimeReportInvoiceDTO>();
+
+        foreach (var project in _context.Projects)
+        {
+            if (project.Active == true)
+            {
+                var newinvoice = TimeReportInvoice(project);
+                timeReports.Add(newinvoice);
+            }
+        }
+
+        return timeReports;
     }
 }

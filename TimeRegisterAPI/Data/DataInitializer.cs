@@ -114,7 +114,7 @@ public class DataInitializer
             {
                 Description = "Jobbade hårt",
                 NoHours = 4,
-                Date = DateTime.Today.AddDays(-10),
+                //Date = DateTime.Today.AddDays(-10),
                 ProjectId = 1,
                 Processed = false,
                 CustomerId = 1,

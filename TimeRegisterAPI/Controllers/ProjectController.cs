@@ -79,7 +79,7 @@ public class ProjectController : ControllerBase
     }
 
     [HttpGet]
-    [Route("activeprojects")]
+    [Route("ActiveProjects")]
     public IActionResult GetActiveProjects()
     {
         var returnList = _dtoReturner.ReturnActiveProjectsDto();
@@ -87,7 +87,7 @@ public class ProjectController : ControllerBase
     }
 
     [HttpGet]
-    [Route("finishedprojects")]
+    [Route("FinishedProjects")]
     public IActionResult GetFinishedProjects()
     {
         var returnList = _dtoReturner.ReturnFinishedProjectsDto();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TimeRegisterAPI.Data;
+using TimeRegisterAPI.DTO.TimeDTO;
 
 namespace TimeRegisterAPI.SupportMethods;
 
@@ -29,5 +30,17 @@ public class MathHelpers : IMathHelpers
     public int HoursSum(int hours, int pricePerHour)
     {
         return hours * pricePerHour;
+    }
+
+    
+
+    public int InvoiceSum(List<TimeReport> unProcessedTimereps)
+    {
+        int sum = 0;
+        foreach (var item in unProcessedTimereps)
+        {
+            sum = sum + item.Sum;
+        }
+        return sum;
     }
 }
