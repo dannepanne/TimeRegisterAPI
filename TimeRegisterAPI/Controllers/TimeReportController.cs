@@ -47,7 +47,7 @@ public class TimeReportController : ControllerBase
     [Route("{id}")]
     public IActionResult Update(int id, UpdateTimeReportDTO thisTimeReport)
     {
-        if (_objectMethods.UpdateTimeReport(id, thisTimeReport) == false) return NotFound();
+        if (_objectMethods.UpdateTimeReport(id, thisTimeReport) == false) return NotFound("An error occured when trying to update time report");
         _objectMethods.UpdateTimeReport(id, thisTimeReport);
         return NoContent();
     }

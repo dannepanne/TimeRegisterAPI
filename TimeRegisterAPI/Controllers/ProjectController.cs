@@ -48,7 +48,7 @@ public class ProjectController : ControllerBase
     [Route("{id}")]
     public IActionResult Update(int id, UpdateProjectDTO thisProj)
     {
-        if (_objectMethods.UpdateProject(id, thisProj) == false) return NotFound();
+        if (_objectMethods.UpdateProject(id, thisProj) == false) return NotFound("An error occured when trying to update project");
         _objectMethods.UpdateProject(id, thisProj);
         return NoContent();
     }
